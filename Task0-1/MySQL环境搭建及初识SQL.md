@@ -1,6 +1,6 @@
 ## 一、安装
 
-### 1. 下载与环境变量配置
+### 1.1 下载与环境变量配置
 
 官网下载地址：[https://dev.mysql.com/downloads/ ](https://dev.mysql.com/downloads/)
 
@@ -22,7 +22,7 @@ export PATH=$PATH:/usr/local/mysql/bin
 source ~/.bash_profile
 ```
 
-### 2. MySQL Workbench
+### 1.2 MySQL Workbench
 
 Mac上有哪些SQL数据库开发工具：[https://www.zhihu.com/question/20498949 1](https://www.zhihu.com/question/20498949)
 
@@ -74,6 +74,8 @@ MySQL Workbench是一款强大的数据库管理工具，既可以用于设计�
 - 字段：列，表中存储的数据项目
 - 单元格：行和列交汇的地方，一个单元格只能输入一条记录
 
+### 3.1  SQL语句种类
+
 SQL语句可以分为三类：
 
 - DDL：数据定义语言（Data Definition Language） 用来创建或者删除存储数据用的数据库以及数据库中的表等对象。DDL 包含以下几种指令：
@@ -94,7 +96,7 @@ SQL语句可以分为三类：
 
 实际操作中的SQL语句90%属于DML。
 
-### 3.1 SQL语句的基本书写规则
+### 3.2 SQL语句的基本书写规则
 
 - 以；结尾
 - 关键字不区分大小写，但是插入到表中的数据区分大小写
@@ -103,7 +105,7 @@ SQL语句可以分为三类：
 - ‘abc’, 1234, ‘26 Jan 2010’, ‘10/01/26’, ‘2010-01-26’…
 - 单词需要**半角空格**或者换行符来分隔
 
-### 3.2 数据库和表的创建
+### 3.3  数据库和表的创建
 
 ```sql
 -- 数据库的创建
@@ -136,7 +138,7 @@ CREATE TABLE product
  PRIMARY KEY (product_id));
 ```
 
-### 3.3 命名规则、数据类型的指定、约束的设置
+### 3.4  命名规则、数据类型的指定、约束的设置
 
 - 只能使用半角英文字母、数字、下划线（_）作为数据库、表和列的名称
 - 名称必须以半角英文字母开头
@@ -149,7 +151,7 @@ CREATE TABLE product
   - `NOT NULL`是非空约束，即该列必须输入数据。
   - `PRIMARY KEY`是主键约束，代表该列是唯一值，可以通过该列取出特定的行的数据。
 
-### 3.4 表的删除和更新
+### 3.5  表的删除和更新
 
 ```sql
 -- 表的删除
@@ -200,7 +202,7 @@ UPDATE product
  WHERE product_type = '厨房用具'; 
 ```
 
-### 3.5 表的插入
+### 3.6 表的插入
 
 ```sql
 INSERT INTO <表名> (列1, 列2, 列3, ……) VALUES (值1, 值2, 值3, ……);  
@@ -256,11 +258,11 @@ FROM Product;
 
 ## 四、练习题
 
-- 编写一条 CREATE TABLE 语句，用来创建一个包含表 1-A 中所列各项的表 Addressbook （地址簿），并为 regist_no （注册编号）列设置主键约束
+1. 编写一条 CREATE TABLE 语句，用来创建一个包含表 1-A 中所列各项的表 Addressbook （地址簿），并为 regist_no （注册编号）列设置主键约束
 
 ![Z4El4zKbbWnaVHro](http://datawhale.club/uploads/default/original/1X/71f46b1e1a52c6504af2f7845d78971d5b47e971.png)
 
-- 假设在创建练习1.1中的 Addressbook 表时忘记添加如下一列 postal_code （邮政编码）了，请把此列添加到 Addressbook 表中。
+2. 假设在创建练习1.1中的 Addressbook 表时忘记添加如下一列 postal_code （邮政编码）了，请把此列添加到 Addressbook 表中。
 
 列名 ： postal_code
 
@@ -268,23 +270,26 @@ FROM Product;
 
 约束 ：不能为 NULL
 
-- 编写 SQL 语句来删除 Addressbook 表。
+3. 编写 SQL 语句来删除 Addressbook 表。
 
-- 编写 SQL 语句来恢复删除掉的 Addressbook 表。
+4. 编写 SQL 语句来恢复删除掉的 Addressbook 表。
 
 ```sql
+--1.
 -- 创建表之前要创建数据库
 CREATE TABLE Addressbook
 (regist_no INTEGER NOT NULL PRIMARY KEY, 
 name VARCHAR(128) NOT NULL, 
 address VARCHAR(256) NOT NULL, 
 tel_no CHAR(10), 
-mail_address CHAR(20));
-
+mail_address CHAR(20)
+PRIMARY KEY (regist_no));
+--2.
 ALTER TABLE Addressbook ADD COLUMN postal_code CHAR(8) NOT NULL
-
+--3.
 DROP TABLE Addressbook
-
+--4.
+删除后的表无法使用命令进行恢复，需要再次创建所需表
 ROLLBACK
 ```
 
